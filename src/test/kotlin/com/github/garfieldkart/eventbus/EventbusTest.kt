@@ -1,15 +1,13 @@
 package com.github.garfieldkart.eventbus
 
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Test
+import org.testng.Assert.*
+import org.testng.annotations.*
 
-import org.junit.jupiter.api.Assertions.*
-
-internal class EventbusTest {
+class EventbusTest {
     private val eventbus = Eventbus()
     private val myListenerInstance = MyListener()
 
-    @AfterEach
+    @AfterMethod
     fun tearDown() {
         eventbus.unsubscribeAll()
         myListenerInstance.count = 0
