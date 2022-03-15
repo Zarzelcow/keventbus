@@ -31,3 +31,31 @@ tasks.test {
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = "1.8"
 }
+
+afterEvaluate {
+    publishing {
+        publications {
+
+            // Creates a Maven publication called "release".
+            create<MavenPublication>("release") {
+
+                // Applies the component for the release build variant.
+                // NOTE : Delete this line code if you publish Native Java / Kotlin Library
+                from(components["release"])
+
+                // Library Package Name (Example : "com.frogobox.androidfirstlib")
+                // NOTE : Different GroupId For Each Library / Module, So That Each Library Is Not Overwritten
+                groupId = group.toString()
+
+                // Library Name / Module Name (Example : "androidfirstlib")
+                // NOTE : Different ArtifactId For Each Library / Module, So That Each Library Is Not Overwritten
+                artifactId = name
+
+                // Version Library Name (Example : "1.0.0")
+                version = project.version.toString()
+
+            }
+
+        }
+    }
+}
