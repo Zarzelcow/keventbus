@@ -9,8 +9,9 @@ buildscript {
 
 plugins {
     id "org.jetbrains.kotlin.jvm" version "1.6.10"
+    id "jacoco"
+    id "org.sonarqube" version "3.3"
 }
-
 
 ext.junitVersion = '5.0.1'
 
@@ -28,4 +29,10 @@ dependencies {
 
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
 }
