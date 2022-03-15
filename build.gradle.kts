@@ -2,10 +2,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.6.10"
-    id("maven-publish")
 }
 
-group = "com.github.garfieldkart"
+group = "com.github.zarzelcow"
 version = "1.0"
 
 repositories {
@@ -25,9 +24,4 @@ tasks.test {
     testLogging {
         events("passed", "skipped", "failed")
     }
-}
-
-// config JVM target to 1.8 for kotlin compilation tasks
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = "1.8"
 }
