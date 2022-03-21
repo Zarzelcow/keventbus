@@ -4,6 +4,36 @@ Simple event bus for event-driven programming.
 Taking advantage of kotlin language features
 instead of typical reflections
 
+###### Table of Contents
+* [Installation](#Installation)
+* [Usage](#Usage)
+
+## Installation
+* [Build Tool](#Build-Tool)
+* [From Source](#From-Source)
+
+### Build Tool
+If you are not using Gradle fallow the guide for other build tools on [jitpack.io](https://jitpack.io/).
+
+###### Gradle
+Add `https://www.jitpack.io` as a maven repo to your project
+```groovy
+repositories {
+    maven { url 'https://www.jitpack.io' }
+}
+```
+Then add the following dependency to your project
+```groovy
+dependencies {
+    implementation 'com.github.Zarzelcow:eventbus:-SNAPSHOT'
+}
+```
+
+### From Source
+All code except dependencies is contained in one file `Eventbus.kt`
+
+Dependencies are the Kotlin Standard Library and jodah's [TypeTools](https://github.com/jhalterman/typetools)
+
 ## Usage
 Unlike most 'conventional' annotation based event bus implementations,
 You instead register listeners on fields using kotlin functions
