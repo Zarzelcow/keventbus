@@ -59,12 +59,45 @@ class EventbusTest {
         assertEquals(0, eventbus.registry.size)
     }
 
+
+    @Test
+    fun `handler no args`() {
+        eventbus.subscribe(myListenerInstance)
+        eventbus.publish(AnotherEvent)
+        assertEquals(1, myListenerInstance.count2)
+    }
+
+    @Test
+    fun `invalid handler`() {
+        assertThrows(IllegalStateException::class.java) {
+            eventbus.subscribe(object {
+                @Handler
+                val onEvent1 = {}
+            })
+        }
+        assertThrows(IllegalStateException::class.java) {
+            eventbus.subscribe(object {
+                @Handler(GenericEvent::class)
+                val onEvent2 = Any()
+            })
+        }
+    }
+
     internal class MyListener {
         var count = 0
+        var count2 = 0
+
         @Handler
         val onEvent = { event: GenericEvent ->
             count++
         }
+
+        @Handler(AnotherEvent::class)
+        val onAnotherEvent = {
+            count2++
+        }
     }
+
+    internal object AnotherEvent
     internal object GenericEvent
 }
