@@ -62,8 +62,7 @@ class Eventbus {
      * @param instance The instance to collect the [OneArgHandler]s for.
      * @return A list of [OneArgHandler]'s.
      */
-    private fun collectListeners(instance: Any, clazz: Class<*> = instance.javaClass): List<OneArgHandler> {
-        val builder = mutableListOf<OneArgHandler>()
+    private fun collectListeners(instance: Any, clazz: Class<*> = instance.javaClass, builder: MutableList<OneArgHandler> = mutableListOf()): List<OneArgHandler> {
         for (field in clazz.declaredFields) {
             if (field.isAnnotationPresent(Handler::class.java)) {
                 val annotation = field.getAnnotation(Handler::class.java)
@@ -76,7 +75,8 @@ class Eventbus {
                 )
             }
         }
-        return builder.toList()
+        clazz.superclass?.let { collectListeners(instance, it, builder) }
+        return builder
     }
 
     // Helper function for handlers

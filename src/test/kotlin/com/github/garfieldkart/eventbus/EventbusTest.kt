@@ -83,7 +83,14 @@ class EventbusTest {
         }
     }
 
-    internal class MyListener {
+    @Test
+    fun `listeners from super`() {
+        val clazz = object : MyListener() {}
+        eventbus.subscribe(clazz)
+        assertEquals(1, eventbus.registry.size)
+    }
+
+    internal open class MyListener {
         var count = 0
         var count2 = 0
 
