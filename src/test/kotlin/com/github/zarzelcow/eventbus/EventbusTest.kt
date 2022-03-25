@@ -1,4 +1,4 @@
-package com.github.garfieldkart.eventbus
+package com.github.zarzelcow.eventbus
 
 import org.testng.Assert.*
 import org.testng.annotations.*
@@ -39,7 +39,7 @@ class EventbusTest {
     }
 
     @Test
-    fun `multiple listeners`() {
+    fun `test multiple listeners`() {
         val listener1 = MyListener()
         val listener2 = MyListener()
         val listener3 = MyListener()
@@ -54,21 +54,21 @@ class EventbusTest {
     }
 
     @Test
-    fun `register Class With No Handlers`() {
+    fun `test register Class With No Handlers`() {
         eventbus.subscribe(object {})
         assertEquals(0, eventbus.registry.size)
     }
 
 
     @Test
-    fun `handler no args`() {
+    fun `test handler no args`() {
         eventbus.subscribe(myListenerInstance)
         eventbus.publish(AnotherEvent)
         assertEquals(1, myListenerInstance.count2)
     }
 
     @Test
-    fun `invalid handler`() {
+    fun `throw on invalid handler`() {
         assertThrows(IllegalStateException::class.java) {
             eventbus.subscribe(object {
                 @Handler
@@ -84,7 +84,7 @@ class EventbusTest {
     }
 
     @Test
-    fun `listeners from super`() {
+    fun `collect listeners from super`() {
         val clazz = object : MyListener() {}
         eventbus.subscribe(clazz)
         assertEquals(1, eventbus.registry.size)

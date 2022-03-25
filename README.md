@@ -42,7 +42,7 @@ You instead register listeners on fields using kotlin functions
 btw this still uses reflections, just not to call handlers
 ***
 ```kotlin
-import com.gitlab.blue.api.client.event.Eventbus
+import com.github.zarzelcow.eventbus.Eventbus
 
 val EVENT_BUS = EventBus()
 
@@ -100,7 +100,7 @@ That gives you a simple event bus loop
 that you can use to publish events
 and subscribe to them in your code.
 ```kotlin
-import com.gitlab.blue.api.client.event.Eventbus
+import com.github.zarzelcow.eventbus.Eventbus
 
 val EVENT_BUS = EventBus()
 

@@ -1,4 +1,4 @@
-package com.github.garfieldkart.eventbus
+package com.github.zarzelcow.eventbus
 
 import net.jodah.typetools.TypeResolver
 import java.lang.reflect.Field
@@ -80,7 +80,8 @@ class Eventbus {
     }
 
     // Helper function for handlers
-    private fun handler1Arg(value: Any) = tryCast<(Any) -> Any>(value)?.let { OneArgHandler(it, TypeResolver.resolveRawArguments(kotlin.Function1::class.java, it.javaClass)[0]) } ?: errorNotOfType("(Any) -> Any")
+    private fun handler1Arg(value: Any) = tryCast<(Any) -> Any>(value)?.let { OneArgHandler(it, TypeResolver.resolveRawArguments(
+        Function1::class.java, it.javaClass)[0]) } ?: errorNotOfType("(Any) -> Any")
     // Helper function for handlers
     private fun handler0Args(value: Any, event: Class<*>) = tryCast<() -> Any>(value)?.let { NoArgsHandler(it, event) } ?: errorNotOfType("() -> Any")
 
