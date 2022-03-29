@@ -91,7 +91,7 @@ class Eventbus {
      * @param instance The object that contains the field.
      * @param field The field to get the value from.
      */
-    private fun getValueFromField(instance: Any, field: Field) = field.also { it.trySetAccessible() }.get(instance)
+    private fun getValueFromField(instance: Any, field: Field) = field.also { it.isAccessible = true }.get(instance)
     private inline fun <reified T> tryCast(instance: Any?): T? = if (instance is T) instance else null
 }
 

@@ -9,6 +9,11 @@ repositories {
     mavenCentral()
 }
 
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("net.jodah:typetools:0.6.3")
@@ -16,9 +21,11 @@ dependencies {
     testImplementation('org.testng:testng:7.5')
     testRuntimeOnly('org.slf4j:slf4j-simple:1.7.36')
 }
+
 test {
     useTestNG()
 }
+
 jacocoTestReport {
     reports {
         xml.required=true
