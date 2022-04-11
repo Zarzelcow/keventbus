@@ -68,21 +68,23 @@ class Eventbus {
                 val annotation = field.getAnnotation(Handler::class.java)
                 val fieldValue = getValueFromField(instance, field)
                 builder.add(
+                    // create a handler from the annotation type
                     when (annotation.klass) {
+                        // handlers using shorthand change the annotation class
                         Handler::class -> handler1Arg(fieldValue)
                         else -> handler0Args(fieldValue, annotation.klass.java)
                     }
                 )
             }
         }
+        // If the class has a superclass, we need to check it too
         clazz.superclass?.let { collectListeners(instance, it, builder) }
         return builder
     }
 
-    // Helper function for handlers
+    // Helper functions for handlers
     private fun handler1Arg(value: Any) = tryCast<(Any) -> Any>(value)?.let { OneArgHandler(it, TypeResolver.resolveRawArguments(
         Function1::class.java, it.javaClass)[0]) } ?: errorNotOfType("(Any) -> Any")
-    // Helper function for handlers
     private fun handler0Args(value: Any, event: Class<*>) = tryCast<() -> Any>(value)?.let { NoArgsHandler(it, event) } ?: errorNotOfType("() -> Any")
 
     /**
